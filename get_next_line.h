@@ -6,7 +6,7 @@
 /*   By: auldry <marvin@42lausanne.ch>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 11:24:03 by auldry            #+#    #+#             */
-/*   Updated: 2022/11/09 12:34:47 by auldry           ###   ########.fr       */
+/*   Updated: 2022/11/15 14:23:28 by auldry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,14 @@
 /**********get_next_line_utils**********/
 
 size_t	ft_strlen(const char *str);
-char	*ft_strjoin(char const *s1, char const *s2);
-char	*ft_strchr(const char *src, int c);
-void	ft_bzero(void *s, size_t n);
-void	*ft_calloc(size_t count, size_t size);
+char	*ft_strjoin(char *s1, char *s2);
+char	*ft_strchr(char *src, int c);
 
 /**********get_next_line**********/
 
+char	*ft_save(char *buffer);
+char	*ft_line(char *buffer);
+char	*ft_read(int fd, char *res);
 char	*get_next_line(int fd);
 
 #endif

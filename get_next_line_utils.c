@@ -6,7 +6,7 @@
 /*   By: auldry <marvin@42lausanne.ch>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 10:37:23 by auldry            #+#    #+#             */
-/*   Updated: 2022/11/09 13:05:28 by auldry           ###   ########.fr       */
+/*   Updated: 2022/11/15 15:17:45 by auldry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,71 +17,55 @@ size_t	ft_strlen(const char *str)
 	int	i;
 
 	i = 0;
+	if (!str)
+		return (0);
 	while (str[i] != '\0')
 		i++;
 	return (i);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
-	int		i;
-	int		j;
-	char	*str;
+	size_t		i;
+	size_t		j;
+	char		*str;
 
-	str = (char *)malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
-	if (str == NULL || !s1 || !s2)
+	if (!s1)
+	{
+		s1 = (char *)malloc(1 * sizeof(char));
+		s1[0] = '\0';
+	}
+	if (!s1 || !s2)
 		return (NULL);
-	i = 0;
+	str = malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
+	if (str == NULL)
+		return (NULL);
+	i = -1;
 	j = 0;
-	while (s1[i] != '\0')
-	{
-		str[i] = s1[i];
-		i++;
-	}
+	if (s1)
+		while (s1[++i] != '\0')
+			str[i] = s1[i];
 	while (s2[j] != '\0')
-	{
-		str[i] = s2[j];
-		i++;
-		j++;
-	}
-	str[i] = '\0';
+		str[i++] = s2[j++];
+	str[ft_strlen(s1) + ft_strlen(s2)] = '\0';
+	free(s1);
 	return (str);
 }
 
-char	*ft_strchr(const char *src, int c)
+char	*ft_strchr(char *src, int c)
 {
-	while (*src)
-	{
-		if (*src == (char)c)
-			return ((char *)src);
-		src++;
-	}
-	if ((char)c == *src)
-		return ((char *)src);
-	return (NULL);
-}
-
-void	ft_bzero(void *s, size_t n)
-{
-	size_t	i;
-	char	*t;
+	int	i;
 
 	i = 0;
-	t = (char *)s;
-	while (i < n)
+	if (!src)
+		return (0);
+	if (c == '\0')
+		return ((char *)&src[ft_strlen(src)]);
+	while (src[i] != '\0')
 	{
-		t[i] = 0;
+		if (src[i] == (char)c)
+			return ((char *)&src[i]);
 		i++;
 	}
-}
-
-void	*ft_calloc(size_t count, size_t size)
-{
-	void	*p;
-
-	p = malloc(count * size);
-	if (p == NULL)
-		return (NULL);
-	ft_bzero(p, size * count);
-	return (p);
+	return (NULL);
 }
